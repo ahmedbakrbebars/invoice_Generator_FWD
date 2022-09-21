@@ -1,0 +1,58 @@
+package model;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+public class InoviceHeader {
+    int InoviceNumber;
+   public Date InoviceDate;
+    String CustomerName;
+    ArrayList<InoviceLine> InoviceLines;
+
+    public InoviceHeader(int InoviceNumber,Date InoviceDate,String CustomerName)
+    {
+        this.InoviceNumber = InoviceNumber;
+        this.CustomerName = CustomerName;
+        this.InoviceDate = InoviceDate;
+        this.InoviceLines = new ArrayList<>();
+    }
+
+    public ArrayList<InoviceLine> getLines(){
+        return InoviceLines;
+    }
+
+    public int getInoviceNumber(){
+        return InoviceNumber;
+    }
+
+    public Date getInoviceDate(){
+        return InoviceDate;
+    }
+
+    public String getCustomerName() {
+        return CustomerName;
+    }
+    public float getTotal(){
+        float total = 0;
+        if(InoviceLines != null && InoviceLines.size() != 0)
+            for(InoviceLine Line : InoviceLines){
+                total += Line.getItemPrice() * Line.getItemCount();
+            }
+        return total;
+    }
+
+    public void addLine(InoviceLine Line){
+        if(this.InoviceLines == null){
+            this.InoviceLines = new ArrayList<>();
+        }
+        this.InoviceLines.add(Line);
+    }
+
+    public void setCustomerName(String CustomerName){
+        this.CustomerName = CustomerName;
+    }
+
+    public void setDate(Date InoviceDate){
+        this.InoviceDate = InoviceDate;
+    }
+}
